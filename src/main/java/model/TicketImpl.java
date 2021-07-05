@@ -8,14 +8,16 @@ public class TicketImpl implements Ticket {
 
     private Long id;
     private Long eventId;
-    private Long UserId;
+    private Long userId;
     private Category category;
     private Integer place;
 
-    public TicketImpl(Long id, Long eventId, Long userId, Category category, Integer place) {
-        this.id = id;
+    public TicketImpl() {
+    }
+
+    public TicketImpl(Long eventId, Long userId, Category category, Integer place) {
         this.eventId = eventId;
-        UserId = userId;
+        this.userId = userId;
         this.category = category;
         this.place = place;
     }
@@ -40,11 +42,11 @@ public class TicketImpl implements Ticket {
 
     @Override
     public long getUserId() {
-        return UserId;
+        return userId;
     }
 
     public void setUserId(long userId) {
-        UserId = userId;
+        this.userId = userId;
     }
 
     @Override
@@ -71,7 +73,7 @@ public class TicketImpl implements Ticket {
         return "TicketImpl{" +
                 "id=" + id +
                 ", eventId=" + eventId +
-                ", UserId=" + UserId +
+                ", userId=" + userId +
                 ", category=" + category +
                 ", place=" + place +
                 '}';

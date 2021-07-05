@@ -2,12 +2,29 @@
 <beans
         xmlns="http://www.springframework.org/schema/beans"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
         xsi:schemaLocation="http://www.springframework.org/schema/beans
-                        http://www.springframework.org/schema/beans/spring-beans.xsd">
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/context
+                        https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="eventDao" class="dao.EventDao"/>
-    <bean id="ticketDao" class="dao.TicketDao"/>
-    <bean id="userDao" class="dao.UserDao"/>
+    <context:component-scan base-package="dao,service,facade"/>
+    <context:property-placeholder location="classpath:event.properties,ticket.properties,user.properties"/>
+    <import resource="classpath:add_value/listEvent.xml"/>
+    <import resource="classpath:add_value/mapTicket.xml"/>
+    <import resource="classpath:add_value/listUser.xml"/>
+
+
+    <!--  DAO   -->
+    <bean id="eventDao" class="dao.EventDao">
+        <constructor-arg index="0" ref="events"/>
+    </bean>
+
+    <bean id="userDao" class="dao.UserDao">
+        <constructor-arg index="0" ref="users"/>
+    </bean>
+
+    <!--  SERVICE   -->
 
     <bean id="eventService" class="service.EventService">
         <constructor-arg index="0" ref="eventDao"/>
@@ -18,6 +35,8 @@
     <bean id="userService" class="service.UserService">
         <constructor-arg index="0" ref="userDao"/>
     </bean>
+
+    <!--  FACADE  -->
 
     <bean id="facadeImpl" class="facade.BookingFacadeImpl">
         <constructor-arg index="0" ref="eventService"/>

@@ -4,6 +4,7 @@ package service;
 
 import dao.EventDao;
 import model.Event;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
@@ -12,8 +13,8 @@ import java.util.List;
  * Created by Artsiom Prokharau 02.07.2021
  */
 
+@Service
 public class EventService {
-
 
     EventDao eventDao;
 

@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Created by Artsiom Prokharau 02.07.2021
@@ -12,10 +13,13 @@ public class EventImpl implements Event {
     private String title;
     private Date date;
 
-    public EventImpl(Long id, String title, Date date) {
-        Id = id;
+    public EventImpl(Long id,String title, Date date) {
+        this.Id = id;
         this.title = title;
         this.date = date;
+    }
+
+    public EventImpl() {
     }
 
     @Override
@@ -45,6 +49,21 @@ public class EventImpl implements Event {
     @Override
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof EventImpl)) return false;
+        EventImpl event = (EventImpl) o;
+        return getId() == event.getId() &&
+                Objects.equals(getTitle(), event.getTitle()) &&
+                Objects.equals(getDate(), event.getDate());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getTitle(), getDate());
     }
 
     @Override

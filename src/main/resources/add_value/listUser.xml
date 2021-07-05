@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:util="http://www.springframework.org/schema/util"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+
+
+    <!--  Add value in ArrayList Users  -->
+    <util:list id="users">
+        <bean class="model.UserImpl">
+            <property name="id" value="${user1.id}"/>
+            <property name="name" value="${user1.name}"/>
+            <property name="email" value="${user1.email}"/>
+        </bean>
+        <bean class="model.UserImpl">
+            <property name="id" value="${user2.id}"/>
+            <property name="name" value="${user2.name}"/>
+            <property name="email" value="${user2.email}"/>
+        </bean>
+        <bean class="model.UserImpl">
+            <property name="id" value="${user3.id}"/>
+            <property name="name" value="${user3.name}"/>
+            <property name="email" value="${user3.email}"/>
+        </bean>
+        <bean class="model.UserImpl">
+            <property name="id" value="${user4.id}"/>
+            <property name="name" value="${user4.name}"/>
+            <property name="email" value="${user4.email}"/>
+        </bean>
+    </util:list>
+
+</beans>

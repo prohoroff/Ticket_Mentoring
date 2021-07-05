@@ -6,6 +6,7 @@ import dao.TicketDao;
 import model.Event;
 import model.Ticket;
 import model.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * Created by Artsiom Prokharau 02.07.2021
  */
 
+@Service
 public class TicketService {
 
     TicketDao ticketDao;
