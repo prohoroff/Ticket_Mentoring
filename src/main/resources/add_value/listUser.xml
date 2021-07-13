@@ -7,28 +7,38 @@
                         http://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
 
 
+    <!--Create beans user-->
+
+    <bean id="user1" class="by.prohor.model.User">
+        <property name="id" value="${user1.id}"/>
+        <property name="name" value="${user1.name}"/>
+        <property name="email" value="${user1.email}"/>
+    </bean>
+
+    <bean id="user2" class="by.prohor.model.User">
+        <property name="id" value="${user2.id}"/>
+        <property name="name" value="${user2.name}"/>
+        <property name="email" value="${user2.email}"/>
+    </bean>
+
+    <bean id="user3" class="by.prohor.model.User">
+        <property name="id" value="${user3.id}"/>
+        <property name="name" value="${user3.name}"/>
+        <property name="email" value="${user3.email}"/>
+    </bean>
+
+    <bean id="user4" class="by.prohor.model.User">
+        <property name="id" value="${user4.id}"/>
+        <property name="name" value="${user4.name}"/>
+        <property name="email" value="${user4.email}"/>
+    </bean>
+
     <!--  Add value in ArrayList Users  -->
-    <util:list id="users">
-        <bean class="model.UserImpl">
-            <property name="id" value="${user1.id}"/>
-            <property name="name" value="${user1.name}"/>
-            <property name="email" value="${user1.email}"/>
-        </bean>
-        <bean class="model.UserImpl">
-            <property name="id" value="${user2.id}"/>
-            <property name="name" value="${user2.name}"/>
-            <property name="email" value="${user2.email}"/>
-        </bean>
-        <bean class="model.UserImpl">
-            <property name="id" value="${user3.id}"/>
-            <property name="name" value="${user3.name}"/>
-            <property name="email" value="${user3.email}"/>
-        </bean>
-        <bean class="model.UserImpl">
-            <property name="id" value="${user4.id}"/>
-            <property name="name" value="${user4.name}"/>
-            <property name="email" value="${user4.email}"/>
-        </bean>
+    <util:list id="users" list-class="java.util.ArrayList" value-type="by.prohor.model.User">
+        <ref bean="user1"/>
+        <ref bean="user2"/>
+        <ref bean="user3"/>
+        <ref bean="user4"/>
     </util:list>
 
 </beans>

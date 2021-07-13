@@ -8,37 +8,33 @@
                         http://www.springframework.org/schema/context
                         https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package="dao,service,facade"/>
-    <context:property-placeholder location="classpath:event.properties,ticket.properties,user.properties"/>
-    <import resource="classpath:add_value/listEvent.xml"/>
-    <import resource="classpath:add_value/mapTicket.xml"/>
-    <import resource="classpath:add_value/listUser.xml"/>
+    <context:component-scan base-package="by.prohor"/>
+    <context:property-placeholder
+            location="classpath*:add_value/prop/event.properties,classpath*:add_value/prop/ticket.properties,classpath*:add_value/prop/user.properties"/>
+    <import resource="classpath*:add_value/listEvent.xml"/>
+    <import resource="classpath*:add_value/mapTicket.xml"/>
+    <import resource="classpath*:add_value/listUser.xml"/>
 
 
     <!--  DAO   -->
-    <bean id="eventDao" class="dao.EventDao">
-        <constructor-arg index="0" ref="events"/>
-    </bean>
 
-    <bean id="userDao" class="dao.UserDao">
-        <constructor-arg index="0" ref="users"/>
-    </bean>
+    <!--  Created across Autowired  -->
 
     <!--  SERVICE   -->
 
-    <bean id="eventService" class="service.EventService">
-        <constructor-arg index="0" ref="eventDao"/>
+    <bean id="eventService" class="by.prohor.service.impl.EventServiceImpl">
+        <constructor-arg index="0" ref="eventDaoList"/>
     </bean>
-    <bean id="ticketService" class="service.TicketService">
-        <constructor-arg index="0" ref="ticketDao"/>
+    <bean id="ticketService" class="by.prohor.service.impl.TicketServiceImpl">
+        <constructor-arg index="0" ref="ticketDaoList"/>
     </bean>
-    <bean id="userService" class="service.UserService">
-        <constructor-arg index="0" ref="userDao"/>
+    <bean id="userService" class="by.prohor.service.impl.UserServiceImpl">
+        <constructor-arg index="0" ref="userDaoList"/>
     </bean>
 
     <!--  FACADE  -->
 
-    <bean id="facadeImpl" class="facade.BookingFacadeImpl">
+    <bean id="facadeImpl" class="by.prohor.facade.BookingFacadeImpl">
         <constructor-arg index="0" ref="eventService"/>
         <constructor-arg index="1" ref="ticketService"/>
         <constructor-arg index="2" ref="userService"/>

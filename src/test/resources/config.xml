@@ -1,14 +1,75 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans
         xmlns="http://www.springframework.org/schema/beans"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:util="http://www.springframework.org/schema/util"
+        xmlns:context="http://www.springframework.org/schema/context"
         xsi:schemaLocation="http://www.springframework.org/schema/beans
-                        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/util
+                        https://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <util:list id="list" list-class="java.util.ArrayList"/>
+    <context:component-scan base-package="by.prohor"/>
 
-    <bean id="eventDao" class="dao.EventDao">
-        <constructor-arg ref="list"/>
+    <bean id="event1" class="by.prohor.model.Event">
+        <property name="id" value="1"/>
+        <property name="title" value="Test"/>
+        <property name="date" value="11/01/2011"/>
+    </bean>
+
+    <bean id="user1" class="by.prohor.model.User">
+        <property name="id" value="1"/>
+        <property name="name" value="Test"/>
+        <property name="email" value="test@test.com"/>
+    </bean>
+
+    <bean id="ticket1" class="by.prohor.model.Ticket">
+        <property name="id" value="1"/>
+        <property name="eventId" value="1"/>
+        <property name="userId" value="1"/>
+        <property name="category" value="PREMIUM"/>
+        <property name="place" value="11"/>
+    </bean>
+
+    <util:list id="events" list-class="java.util.ArrayList" value-type="by.prohor.model.Event">
+        <ref bean="event1"/>
+    </util:list>
+
+    <util:list id="users" list-class="java.util.ArrayList" value-type="by.prohor.model.User">
+        <ref bean="user1"/>
+    </util:list>
+
+    <util:map id="tickets" map-class="java.util.HashMap" value-type="by.prohor.model.Ticket">
+        <entry key="ticket: 1" value-ref="ticket1"/>
+    </util:map>
+
+
+
+
+    <bean id="eventDao" class="by.prohor.dao.impl.list.EventDaoList"/>
+
+    <!--  DAO   -->
+
+    <!--  Created across Autowired  -->
+
+    <!--  SERVICE   -->
+
+    <bean id="eventService" class="by.prohor.service.impl.EventServiceImpl">
+        <constructor-arg index="0" ref="eventDaoList"/>
+    </bean>
+    <bean id="ticketService" class="by.prohor.service.impl.TicketServiceImpl">
+        <constructor-arg index="0" ref="ticketDaoList"/>
+    </bean>
+    <bean id="userService" class="by.prohor.service.impl.UserServiceImpl">
+        <constructor-arg index="0" ref="userDaoList"/>
+    </bean>
+
+    <!--  FACADE  -->
+
+    <bean id="facadeImpl" class="by.prohor.facade.BookingFacadeImpl">
+        <constructor-arg index="0" ref="eventService"/>
+        <constructor-arg index="1" ref="ticketService"/>
+        <constructor-arg index="2" ref="userService"/>
     </bean>
 
 
