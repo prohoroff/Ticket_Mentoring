@@ -115,7 +115,7 @@ public class BookingFacadeImpl implements BookingFacade {
     }
 
     @Override
-    public void preloadUsers(MultipartFile file) {
-        userServiceImpl.preloadUsers(file);
+    public void preloadUsers() {
+        userServiceImpl.preloadUsers();
     }
 }

@@ -4,11 +4,12 @@ package by.prohor.service.impl;
 import by.prohor.dao.UserDao;
 import by.prohor.model.User;
 import by.prohor.service.UserService;
-import by.prohor.service.parser.Jackson;
+import by.prohor.service.parser.ConverterXml;
 import by.prohor.service.parser.UserDto;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,6 +20,9 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     UserDao userDao;
+
+    @Autowired
+    private ConverterXml converter;
 
     public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
@@ -59,14 +63,8 @@ public class UserServiceImpl implements UserService {
         return userDao.getAllUsers();
     }
 
-    public void preloadUsers(MultipartFile file) {
-        UserDto userDto = null;
-        try {
-            userDto = new Jackson(file).loaderXmlFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        List<User> users = userDto.getUsers();
-        userDao.preloadUsers(users);
+    public void preloadUsers() {
+        UserDto userDto = converter.XMLToObj();
+        userDao.preloadUsers(userDto.getUserList());
     }
 }

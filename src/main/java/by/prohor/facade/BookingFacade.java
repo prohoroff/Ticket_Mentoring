@@ -166,5 +166,5 @@ public interface BookingFacade {
      */
     boolean cancelTicket(long ticketId);
 
-    void preloadUsers(MultipartFile file);
+    void preloadUsers();
 }

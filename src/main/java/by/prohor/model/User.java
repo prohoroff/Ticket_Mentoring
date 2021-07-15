@@ -1,7 +1,5 @@
 package by.prohor.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-
 import java.util.Objects;
 
 /**
