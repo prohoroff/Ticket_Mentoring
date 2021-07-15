@@ -7,6 +7,8 @@ import by.prohor.model.Event;
 import by.prohor.model.Ticket;
 import by.prohor.model.User;
 import by.prohor.service.TicketService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -14,9 +16,10 @@ import java.util.List;
  * Created by Artsiom Prokharau 02.07.2021
  */
 
-
+@Service
 public class TicketServiceImpl implements TicketService {
 
+    @Autowired
     TicketDao ticketDao;
 
     public TicketServiceImpl(TicketDao ticketDao) {

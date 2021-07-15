@@ -6,6 +6,8 @@ import by.prohor.model.User;
 import by.prohor.service.UserService;
 import by.prohor.service.parser.Jackson;
 import by.prohor.service.parser.UserDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -16,8 +18,10 @@ import java.util.List;
  */
 
 
+@Service
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     UserDao userDao;
 
     public UserServiceImpl(UserDao userDao) {

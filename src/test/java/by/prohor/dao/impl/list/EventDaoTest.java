@@ -2,24 +2,32 @@ package by.prohor.dao.impl.list;
 
 import by.prohor.dao.EventDao;
 import by.prohor.model.Event;
+import by.prohor.web.UserController;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = {"classpath:config.xml"})
+@SpringJUnitConfig(EventDaoTest.Config.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class EventDaoTest {
+
 
     @Autowired
     private EventDao eventDao;
+
+
 
     @Test
     void getEventById() {
@@ -69,5 +77,20 @@ class EventDaoTest {
         eventDao.createEvent(event);
         assertEquals(event, eventDao.getEventById(event.getId()));
         assertTrue(eventDao.deleteEvent(event.getId()));
+    }
+
+    @Configuration
+    static class Config {
+
+        @Bean
+        EventDao createEvent() {
+            return new EventDaoList();
+        }
+
+        @Bean
+        List<Event> created() {
+            return new ArrayList<>();
+        }
+
     }
 }

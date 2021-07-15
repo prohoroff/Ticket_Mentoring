@@ -4,6 +4,8 @@ package by.prohor.service.impl;
 import by.prohor.dao.EventDao;
 import by.prohor.model.Event;
 import by.prohor.service.EventService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
@@ -13,8 +15,10 @@ import java.util.List;
  */
 
 
+@Service
 public class EventServiceImpl implements EventService {
 
+    @Autowired
     EventDao eventDao;
 
     public EventServiceImpl(EventDao eventDao) {

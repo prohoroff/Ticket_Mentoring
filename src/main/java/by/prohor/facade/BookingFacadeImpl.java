@@ -8,6 +8,8 @@ import by.prohor.model.User;
 import by.prohor.service.impl.EventServiceImpl;
 import by.prohor.service.impl.TicketServiceImpl;
 import by.prohor.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
@@ -17,17 +19,16 @@ import java.util.List;
  * Created by Artsiom Prokharau 02.07.2021
  */
 
+@Component
 public class BookingFacadeImpl implements BookingFacade {
 
-    private final EventServiceImpl eventServiceImpl;
-    private final TicketServiceImpl ticketServiceImpl;
-    private final UserServiceImpl userServiceImpl;
+    @Autowired
+    private EventServiceImpl eventServiceImpl;
+    @Autowired
+    private TicketServiceImpl ticketServiceImpl;
+    @Autowired
+    private UserServiceImpl userServiceImpl;
 
-    public BookingFacadeImpl(EventServiceImpl eventServiceImpl, TicketServiceImpl ticketServiceImpl, UserServiceImpl userServiceImpl) {
-        this.eventServiceImpl = eventServiceImpl;
-        this.ticketServiceImpl = ticketServiceImpl;
-        this.userServiceImpl = userServiceImpl;
-    }
 
     @Override
     public Event getEventById(long eventId) {

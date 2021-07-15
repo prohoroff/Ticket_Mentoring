@@ -35,7 +35,7 @@ public class PdfController {
         FileOutputStream fileOutputStream = new FileOutputStream("html.pdf");
         PdfWriter writer = PdfWriter.getInstance(document, fileOutputStream);
         document.open();
-        XMLWorkerHelper.getInstance().parseXHtml(writer, document, new FileInputStream("src/main/webapp/WEB-INF/templates/users.html"));
+        XMLWorkerHelper.getInstance().parseXHtml(writer, document, new FileInputStream("/home/prohor/IdeaProjects/Spring_Intro/src/main/resources/templates/users.html"));
         document.close();
 
         return new FileSystemResource("html.pdf");

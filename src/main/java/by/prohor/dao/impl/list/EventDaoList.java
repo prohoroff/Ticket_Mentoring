@@ -5,6 +5,7 @@ import by.prohor.model.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PreDestroy;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +19,7 @@ public class EventDaoList implements EventDao {
 
     @Autowired
     private List<Event> events;
+
 
     @Override
     public Event getEventById(long eventId) {
@@ -47,7 +49,7 @@ public class EventDaoList implements EventDao {
 
     @Override
     public boolean deleteEvent(long eventId) {
-        Event event = events.get((int) eventId);
+        Event event = events.stream().filter(c -> c.getId() == eventId).findFirst().get();
         return events.remove(event);
     }
 
