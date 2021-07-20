@@ -2,75 +2,44 @@
 <beans
         xmlns="http://www.springframework.org/schema/beans"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:util="http://www.springframework.org/schema/util"
         xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
         xsi:schemaLocation="http://www.springframework.org/schema/beans
                         http://www.springframework.org/schema/beans/spring-beans.xsd
-                        http://www.springframework.org/schema/util
-                        https://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+                        http://www.springframework.org/schema/context
+                        https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/data/jpa https://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <context:component-scan base-package="by.prohor"/>
+    <context:annotation-config/>
 
-    <bean id="event1" class="by.prohor.model.Event">
-        <property name="id" value="1"/>
-        <property name="title" value="Test"/>
-        <property name="date" value="11/01/2011"/>
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"/>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="org.h2.Driver"/>
+        <property name="url" value="jdbc:h2:/home/prohor/IdeaProjects/Spring_Intro/H2/TestData"/>
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
     </bean>
 
-    <bean id="user1" class="by.prohor.model.User">
-        <property name="id" value="1"/>
-        <property name="name" value="Test"/>
-        <property name="email" value="test@test.com"/>
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+                <prop key="hibernate.generate-ddl">true</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="connection.pool_size">2</prop>
+                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+            </props>
+        </property>
+
+        <property name="packagesToScan" value="by.prohor.model"/>
     </bean>
 
-    <bean id="ticket1" class="by.prohor.model.Ticket">
-        <property name="id" value="1"/>
-        <property name="eventId" value="1"/>
-        <property name="userId" value="1"/>
-        <property name="category" value="PREMIUM"/>
-        <property name="place" value="11"/>
-    </bean>
-
-    <util:list id="events" list-class="java.util.ArrayList" value-type="by.prohor.model.Event">
-        <ref bean="event1"/>
-    </util:list>
-
-    <util:list id="users" list-class="java.util.ArrayList" value-type="by.prohor.model.User">
-        <ref bean="user1"/>
-    </util:list>
-
-    <util:map id="tickets" map-class="java.util.HashMap" value-type="by.prohor.model.Ticket">
-        <entry key="ticket: 1" value-ref="ticket1"/>
-    </util:map>
-
-
-
-
-    <bean id="eventDao" class="by.prohor.dao.impl.list.EventDaoList"/>
-
-    <!--  DAO   -->
-
-    <!--  Created across Autowired  -->
-
-    <!--  SERVICE   -->
-
-    <bean id="eventService" class="by.prohor.service.impl.EventServiceImpl">
-        <constructor-arg index="0" ref="eventDaoList"/>
-    </bean>
-    <bean id="ticketService" class="by.prohor.service.impl.TicketServiceImpl">
-        <constructor-arg index="0" ref="ticketDaoList"/>
-    </bean>
-    <bean id="userService" class="by.prohor.service.impl.UserServiceImpl">
-        <constructor-arg index="0" ref="userDaoList"/>
-    </bean>
-
-    <!--  FACADE  -->
-
-    <bean id="facadeImpl" class="by.prohor.facade.BookingFacadeImpl">
-        <constructor-arg index="0" ref="eventService"/>
-        <constructor-arg index="1" ref="ticketService"/>
-        <constructor-arg index="2" ref="userService"/>
-    </bean>
-
-
+    <jpa:repositories base-package="by.prohor.dao" entity-manager-factory-ref="entityManagerFactory"
+                      transaction-manager-ref="transactionManager"/>
 </beans>

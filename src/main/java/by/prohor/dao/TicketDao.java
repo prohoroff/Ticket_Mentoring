@@ -1,9 +1,8 @@
 package by.prohor.dao;
 
 import by.prohor.model.Category;
-import by.prohor.model.Event;
 import by.prohor.model.Ticket;
-import by.prohor.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
@@ -12,38 +11,29 @@ import java.util.List;
  */
 
 
-public interface TicketDao {
+public interface TicketDao extends JpaRepository<Ticket, Long> {
     /**
      * Book ticket for a specified event on behalf of specified user.
      *
-     * @param userId   User Id.
-     * @param eventId  Event Id.
-     * @param place    Place number.
      * @param category Service category.
      * @return Booked ticket object.
      * @throws IllegalStateException if this place has already been booked.
      */
-    Ticket bookTicket(long userId, long eventId, int place, Category category);
+    Ticket findByCategory(Category category);
 
     /**
      * Get all booked tickets for specified user. Tickets should be sorted by event date in descending order.
      *
-     * @param user     User
-     * @param pageSize Pagination param. Number of tickets to return on a page.
-     * @param pageNum  Pagination param. Number of the page to return. Starts from 1.
      * @return List of Ticket objects.
      */
-    List<Ticket> getBookedTickets(User user, int pageSize, int pageNum);
+    List<Ticket> findAllByUserId(Long userId);
 
     /**
      * Get all booked tickets for specified event. Tickets should be sorted in by user email in ascending order.
      *
-     * @param event    Event
-     * @param pageSize Pagination param. Number of tickets to return on a page.
-     * @param pageNum  Pagination param. Number of the page to return. Starts from 1.
      * @return List of Ticket objects.
      */
-    List<Ticket> getBookedTickets(Event event, int pageSize, int pageNum);
+    List<Ticket> findAllByEventId(Long eventId);
 
     /**
      * Cancel ticket with a specified id.
@@ -51,10 +41,6 @@ public interface TicketDao {
      * @param ticketId Ticket id.
      * @return Flag whether anything has been canceled.
      */
-    boolean cancelTicket(long ticketId);
+    boolean deleteById(long ticketId);
 
-    /**
-     * @return size map
-     */
-    int size();
 }

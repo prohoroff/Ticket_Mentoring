@@ -1,13 +1,20 @@
 package by.prohor.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
 
 /**
  * Created by Artsiom Prokharau 02.07.2021
  */
 
+@Entity
 public class Ticket {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long eventId;
     private Long userId;

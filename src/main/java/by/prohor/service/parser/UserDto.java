@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Artsiom Prokharau 15.07.2021
  */
 
-@XmlRootElement(name="users")
+@XmlRootElement(name = "users")
 public class UserDto {
 
     private List<User> userList;

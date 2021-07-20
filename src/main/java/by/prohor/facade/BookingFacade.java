@@ -5,7 +5,6 @@ import by.prohor.model.Category;
 import by.prohor.model.Event;
 import by.prohor.model.Ticket;
 import by.prohor.model.User;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -65,9 +64,8 @@ public interface BookingFacade {
      * Deletes event by its id.
      *
      * @param eventId Event id.
-     * @return Flag that shows whether event has been deleted.
      */
-    boolean deleteEvent(long eventId);
+    void deleteEvent(long eventId);
 
     /**
      * Gets user by its id.
@@ -122,9 +120,8 @@ public interface BookingFacade {
      * Deletes user by its id.
      *
      * @param userId User id.
-     * @return Flag that shows whether user has been deleted.
      */
-    boolean deleteUser(long userId);
+    void deleteUser(long userId);
 
     /**
      * Book ticket for a specified event on behalf of specified user.

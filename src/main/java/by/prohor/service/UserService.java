@@ -56,9 +56,8 @@ public interface UserService {
      * Deletes user by its id.
      *
      * @param userId User id.
-     * @return Flag that shows whether user has been deleted.
      */
-    boolean deleteUser(long userId);
+    void deleteUser(long userId);
 
     /**
      * Get all users

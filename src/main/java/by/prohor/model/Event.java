@@ -1,5 +1,9 @@
 package by.prohor.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 import java.util.Objects;
 
@@ -7,14 +11,16 @@ import java.util.Objects;
  * Created by Artsiom Prokharau 02.07.2021
  */
 
+@Entity
 public class Event {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long Id;
     private String title;
     private Date date;
 
-    public Event(Long id, String title, Date date) {
-        this.Id = id;
+    public Event(String title, Date date) {
         this.title = title;
         this.date = date;
     }

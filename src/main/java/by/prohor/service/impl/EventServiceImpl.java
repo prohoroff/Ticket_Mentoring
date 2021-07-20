@@ -4,6 +4,9 @@ package by.prohor.service.impl;
 import by.prohor.dao.EventDao;
 import by.prohor.model.Event;
 import by.prohor.service.EventService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -12,43 +15,44 @@ import java.util.List;
  * Created by Artsiom Prokharau 02.07.2021
  */
 
-
+@Service
+@Transactional
 public class EventServiceImpl implements EventService {
 
-    EventDao eventDao;
+    private final EventDao eventDao;
 
+    @Autowired
     public EventServiceImpl(EventDao eventDao) {
         this.eventDao = eventDao;
     }
 
     @Override
     public Event getEventById(long eventId) {
-        return eventDao.getEventById(eventId);
+        return eventDao.findById(eventId).get();
     }
 
     @Override
     public List<Event> getEventsByTitle(String title, int pageSize, int pageNum) {
-        return eventDao.getEventsByTitle(title, pageSize, pageNum);
+        return eventDao.findEventByTitle(title);
     }
 
     @Override
     public List<Event> getEventsForDay(Date day, int pageSize, int pageNum) {
-        return eventDao.getEventsForDay(day, pageSize, pageNum);
+        return eventDao.findEventByDate(day);
     }
 
     @Override
     public Event createEvent(Event event) {
-        return eventDao.createEvent(event);
+        return eventDao.save(event);
     }
 
     @Override
     public Event updateEvent(Event event) {
-        return eventDao.updateEvent(event);
+        return null;
     }
 
     @Override
-    public boolean deleteEvent(long eventId) {
-        return eventDao.deleteEvent(eventId);
+    public void deleteEvent(long eventId) {
+        eventDao.deleteById(eventId);
     }
-
 }
