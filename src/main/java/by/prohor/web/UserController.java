@@ -2,6 +2,7 @@ package by.prohor.web;
 
 import by.prohor.facade.BookingFacade;
 import by.prohor.model.User;
+import by.prohor.model.UserAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -26,11 +27,6 @@ public class UserController {
 
     public UserController(BookingFacade bookingFacade) {
         this.bookingFacade = bookingFacade;
-    }
-
-    @PostMapping("/test")
-    public ResponseEntity<User> test(@RequestBody User user) {
-        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping("/")
@@ -65,6 +61,18 @@ public class UserController {
     public String create() {
         LOGGER.info("Method start. UserController (-- /new --)");
         return "user_add";
+    }
+
+    @GetMapping("/spend")
+    public String spend(@RequestParam("id") int id, @RequestParam("cash") String cash){
+        bookingFacade.spendCash(id,cash);
+        return "redirect:/";
+    }
+
+    @GetMapping("/money")
+    public String add(@RequestParam("id") int id, @RequestParam("add") String add){
+        bookingFacade.addMoney(id,add);
+        return "redirect:/";
     }
 
 }

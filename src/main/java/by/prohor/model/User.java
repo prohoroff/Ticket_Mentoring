@@ -1,5 +1,7 @@
 package by.prohor.model;
 
+import org.hibernate.annotations.Formula;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -17,6 +19,8 @@ public class User {
     private String name;
     @Column(unique = true, nullable = false)
     private String email;
+    @Formula(value ="(select (USERACCOUNT.PREPAYMENT) from USERACCOUNT where  USERACCOUNT.USER_ID  =  ID)")
+    private Double balance = 0.0;
 
     public User() {
     }
@@ -50,27 +54,12 @@ public class User {
         this.email = email;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return getId() == user.getId() &&
-                Objects.equals(getName(), user.getName()) &&
-                Objects.equals(getEmail(), user.getEmail());
+    public Double getBalance() {
+        return balance;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getName(), getEmail());
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+    public void setBalance(Double balance) {
+        this.balance = balance;
     }
 }
+

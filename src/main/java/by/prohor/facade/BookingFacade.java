@@ -1,10 +1,7 @@
 package by.prohor.facade;
 
 
-import by.prohor.model.Category;
-import by.prohor.model.Event;
-import by.prohor.model.Ticket;
-import by.prohor.model.User;
+import by.prohor.model.*;
 
 import java.util.Date;
 import java.util.List;
@@ -164,4 +161,12 @@ public interface BookingFacade {
     boolean cancelTicket(long ticketId);
 
     void preloadUsers();
+
+    double findBalanceByUserId(long userId);
+
+    List<UserAccount> findAllPrepayment();
+
+    void spendCash(int id, String cash);
+
+    void addMoney(int id, String add);
 }

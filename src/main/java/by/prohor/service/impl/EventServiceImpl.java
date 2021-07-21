@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class EventServiceImpl implements EventService {
 
     private final EventDao eventDao;
@@ -42,16 +42,19 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    @Transactional
     public Event createEvent(Event event) {
         return eventDao.save(event);
     }
 
     @Override
+    @Transactional
     public Event updateEvent(Event event) {
         return null;
     }
 
     @Override
+    @Transactional
     public void deleteEvent(long eventId) {
         eventDao.deleteById(eventId);
     }

@@ -7,6 +7,7 @@ import by.prohor.model.Ticket;
 import by.prohor.model.User;
 import by.prohor.service.TicketService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  */
 
 @Service
+@Transactional(readOnly = true)
 public class TicketServiceImpl implements TicketService {
 
     @Override
@@ -33,6 +35,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    @Transactional
     public boolean cancelTicket(long ticketId) {
         return false;
     }

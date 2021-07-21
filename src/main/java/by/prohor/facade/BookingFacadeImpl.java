@@ -1,10 +1,7 @@
 package by.prohor.facade;
 
 
-import by.prohor.model.Category;
-import by.prohor.model.Event;
-import by.prohor.model.Ticket;
-import by.prohor.model.User;
+import by.prohor.model.*;
 import by.prohor.service.EventService;
 import by.prohor.service.TicketService;
 import by.prohor.service.UserService;
@@ -119,8 +116,23 @@ public class BookingFacadeImpl implements BookingFacade {
     public void preloadUsers() {
     }
 
-//    @Override
-//    public void preloadUsers() {
-//        userService.preloadUsers();
-//    }
+    @Override
+    public double findBalanceByUserId(long userId) {
+        return userService.findBalanceByUserId(userId);
+    }
+
+    @Override
+    public List<UserAccount> findAllPrepayment() {
+        return userService.findAllPrepayment();
+    }
+
+    @Override
+    public void spendCash(int id, String cash) {
+            userService.spendCash(id,cash);
+    }
+
+    @Override
+    public void addMoney(int id, String add) {
+        userService.addMoney(id, add);
+    }
 }

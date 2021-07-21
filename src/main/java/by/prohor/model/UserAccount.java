@@ -1,9 +1,9 @@
 package by.prohor.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
 
 /**
  * Created by Artsiom Prokharau 20.07.2021
@@ -13,8 +13,37 @@ import javax.persistence.Id;
 public class UserAccount {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private Double prepayment;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @MapsId
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
 
+    public UserAccount() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Double getPrepayment() {
+        return prepayment;
+    }
+
+    public void setPrepayment(Double prepayment) {
+        this.prepayment = prepayment;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

@@ -1,6 +1,7 @@
 package by.prohor.service;
 
 import by.prohor.model.User;
+import by.prohor.model.UserAccount;
 
 import java.util.List;
 
@@ -66,4 +67,11 @@ public interface UserService {
      */
     List<User> getAllUsers();
 
+    List<UserAccount> findAllPrepayment();
+
+    double findBalanceByUserId(long userId);
+
+    void spendCash(int id, String cash);
+
+    void addMoney(int id, String add);
 }
