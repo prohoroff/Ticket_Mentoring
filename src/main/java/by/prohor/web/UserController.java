@@ -2,14 +2,13 @@ package by.prohor.web;
 
 import by.prohor.facade.BookingFacade;
 import by.prohor.model.User;
-import by.prohor.model.UserAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -64,14 +63,14 @@ public class UserController {
     }
 
     @GetMapping("/spend")
-    public String spend(@RequestParam("id") int id, @RequestParam("cash") String cash){
-        bookingFacade.spendCash(id,cash);
+    public String spend(@RequestParam("id") int id, @RequestParam("cash") String cash) {
+        bookingFacade.spendCash(id, cash);
         return "redirect:/";
     }
 
     @GetMapping("/money")
-    public String add(@RequestParam("id") int id, @RequestParam("add") String add){
-        bookingFacade.addMoney(id,add);
+    public String add(@RequestParam("id") int id, @RequestParam("add") String add) {
+        bookingFacade.addMoney(id, add);
         return "redirect:/";
     }
 

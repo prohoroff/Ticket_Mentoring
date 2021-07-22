@@ -1,15 +1,17 @@
 package by.prohor.model;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 /**
  * Created by Artsiom Prokharau 02.07.2021
  */
 
 @Entity
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User {
 
     @Id
@@ -19,8 +21,8 @@ public class User {
     private String name;
     @Column(unique = true, nullable = false)
     private String email;
-    @Formula(value ="(select (USERACCOUNT.PREPAYMENT) from USERACCOUNT where  USERACCOUNT.USER_ID  =  ID)")
-    private Double balance = 0.0;
+    @Formula(value = "(select (USERACCOUNT.PREPAYMENT) from USERACCOUNT where  USERACCOUNT.USER_ID  =  ID)")
+    private Double balance;
 
     public User() {
     }

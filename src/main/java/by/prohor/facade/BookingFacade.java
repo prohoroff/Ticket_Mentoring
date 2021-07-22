@@ -97,7 +97,6 @@ public interface BookingFacade {
      */
     User createUser(User user);
 
-
     /**
      * Get all users
      *

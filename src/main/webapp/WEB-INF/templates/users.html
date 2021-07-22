@@ -52,14 +52,14 @@
             </thead>
 
             <tbody>
-            <tr th:each="user : ${allUser}" >
+            <tr th:each="user : ${allUser}">
                 <td th:text="${user.getName()}">Artsiom</td>
                 <td th:text="${user.getEmail()}">art@art.com</td>
                 <td th:text="${user.getBalance()} ?: ' '">100</td>
                 <td>
                     <form th:action="@{/money}" th:method="get">
                         <div class="input-group mb-3">
-                            <input type="hidden" name = "id" th:value="${user.getId()}">
+                            <input type="hidden" name="id" th:value="${user.getId()}">
                             <input type="number" name="add" class="form-control" placeholder="add">
                             <a href="/money">
                                 <button type="submit">top up</button>
@@ -70,7 +70,7 @@
                 <td>
                     <form th:action="@{/spend}" th:method="get">
                         <div class="input-group mb-3">
-                            <input type="hidden" name = "id" th:value="${user.getId()}">
+                            <input type="hidden" name="id" th:value="${user.getId()}">
                             <input type="number" name="cash" class="form-control" placeholder="cash">
                             <a href="/spend">
                                 <button type="submit">Spend</button>

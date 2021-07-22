@@ -128,7 +128,7 @@ public class BookingFacadeImpl implements BookingFacade {
 
     @Override
     public void spendCash(int id, String cash) {
-            userService.spendCash(id,cash);
+        userService.spendCash(id, cash);
     }
 
     @Override

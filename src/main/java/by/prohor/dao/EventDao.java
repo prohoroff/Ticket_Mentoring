@@ -1,7 +1,6 @@
 package by.prohor.dao;
 
 import by.prohor.model.Event;
-import by.prohor.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Date;

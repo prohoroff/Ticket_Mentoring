@@ -6,6 +6,7 @@ import by.prohor.dao.UserDao;
 import by.prohor.model.User;
 import by.prohor.model.UserAccount;
 import by.prohor.service.UserService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
